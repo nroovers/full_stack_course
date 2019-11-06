@@ -1,0 +1,11 @@
+note over browser:
+browser starts executing the event handler
+following the onsubmit event from the form.
+
+1. new note created: { content: "new note", date: "2019-11-06" }
+2. redraws notes to display
+3. send new note to server (new note as Request payload)
+end note
+
+browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa 
+server-->browser: {"message":"note created"}

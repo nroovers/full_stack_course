@@ -19,9 +19,17 @@ const App = () => {
 
     console.log(newName, persons)
 
-    const newPerson = { name: newName }
-    setPersons(persons.concat([newPerson]))
-    setNewName('')
+
+    // debugger;
+
+    if (persons.map(person => person.name).includes(newName)) {
+      alert(`${newName} is already added to phonebook`)
+    }
+    else {
+      const newPerson = { name: newName }
+      setPersons(persons.concat([newPerson]))
+      setNewName('')
+    }
   }
 
   return (

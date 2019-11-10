@@ -26,7 +26,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
-  const [notification, setNotification] = useState('')
+  const [notification, setNotification] = useState(null)
 
   const handleNameChange = (event) => {
     // console.log('handleNameChange ', event.target.value)
@@ -58,10 +58,13 @@ const App = () => {
           .then(p => {
             //add the person that was created and returned by the server, this object includes the id property
             setPersons(persons.map(p => p.id === personToUpdate.id ? personToUpdate : p))
+            writeNotification(`${personToUpdate.name} updated`)
+          })
+          .catch(error => {
+            writeError(`${personToUpdate.name} could not be updated as it doesnt exist on the server`)
           })
         setNewName('')
         setNewNumber('')
-        writeNotification(`${personToUpdate.name} updated`)
       }
     }
     else {
@@ -71,10 +74,10 @@ const App = () => {
         .then(p => {
           //add the person that was created and returned by the server, this object includes the id property
           setPersons(persons.concat([p]))
+          writeNotification(`${newPerson.name} added`)
         })
       setNewName('')
       setNewNumber('')
-      writeNotification(`${newPerson.name} added`)
     }
   }
 
@@ -88,11 +91,21 @@ const App = () => {
 
           writeNotification(`${person.name} removed`)
         })
+        .catch(error => {
+          writeError(`${person.name} could not be removed as it doesnt exist on the server`)
+        })
     }
   }
 
   const writeNotification = (notification) => {
-    setNotification(notification)
+    setNotification({ text: notification, isError: false })
+    setTimeout(() => {
+      setNotification(null)
+    }, 5000)
+  }
+
+  const writeError = (error) => {
+    setNotification({ text: error, isError: true })
     setTimeout(() => {
       setNotification(null)
     }, 5000)

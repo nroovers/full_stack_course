@@ -1,16 +1,19 @@
 import React from 'react'
 import './Notification.css'
 
-const Notification = ({ notification }) => {
+const Notification = (props) => {
 
-    if (notification === null || notification === '') {
+console.log(props)
+
+
+    if (props.notification === null) {
         return null
     }
 
     return (
-        // <div class={notification.isError ? 'error' : 'notification'}>
-        <div className='notif'>
-            {notification}
+        <div className={props.notification.isError ? 'error' : 'notif'}>
+        {/* <div className='notif'> */}
+            {props.notification.text}
         </div>
     )
 }

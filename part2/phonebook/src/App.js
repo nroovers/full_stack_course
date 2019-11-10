@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
-import axios from 'axios'
-
+import PersonService from './services/persons'
 
 
 const App = () => {
@@ -13,10 +12,10 @@ const App = () => {
   //as the setPersons functiond re-renders the page and causes the code to run again
   useEffect(() => {
     console.log('start effect')
-    axios.get('http://localhost:3001/persons')
-      .then(response => {
+    PersonService.getAll()
+      .then(persons => {
         console.log('promise fulfilled')
-        setPersons(response.data)
+        setPersons(persons)
       })
   }, [])
 
@@ -47,14 +46,18 @@ const App = () => {
 
     console.log('handleAddPerson ', newName, newNumber, persons)
 
-    // debugger;
-
     if (persons.map(person => person.name).includes(newName)) {
       alert(`${newName} is already added to phonebook`)
     }
     else {
       const newPerson = { name: newName, number: newNumber }
-      setPersons(persons.concat([newPerson]))
+
+      //No effect here as this code only gets executed when specific events triggers
+      PersonService.create(newPerson)
+        .then(person => {
+          setPersons(persons.concat([newPerson]))
+        })
+
       setNewName('')
       setNewNumber('')
     }

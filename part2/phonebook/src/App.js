@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 import PersonService from './services/persons'
 
 
@@ -25,6 +26,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [notification, setNotification] = useState('')
 
   const handleNameChange = (event) => {
     // console.log('handleNameChange ', event.target.value)
@@ -59,6 +61,7 @@ const App = () => {
           })
         setNewName('')
         setNewNumber('')
+        writeNotification(`${personToUpdate.name} updated`)
       }
     }
     else {
@@ -71,6 +74,7 @@ const App = () => {
         })
       setNewName('')
       setNewNumber('')
+      writeNotification(`${newPerson.name} added`)
     }
   }
 
@@ -81,13 +85,26 @@ const App = () => {
         .then(() => {
           console.log('Removed person ', person)
           setPersons(persons.filter(p => p.id !== person.id))
+
+          writeNotification(`${person.name} removed`)
         })
     }
   }
 
+  const writeNotification = (notification) => {
+    setNotification(notification)
+    setTimeout(() => {
+      setNotification(null)
+    }, 5000)
+  }
+
   console.log('return')
+
   return (
     <div>
+
+      <Notification notification={notification} />
+
       <h2>Phonebook</h2>
       <Filter onFilterChange={handleFilterChange} filter={filter} />
 

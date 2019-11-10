@@ -2,7 +2,7 @@ import React from 'react'
 import Person from './Person'
 
 
-const Persons = ({filter, persons}) => {
+const Persons = ({filter, persons, onRemovePerson}) => {
 
     const renderPersons = () => {
         const personsToRender = filter.length > 0 ?
@@ -10,7 +10,7 @@ const Persons = ({filter, persons}) => {
             persons
     
         // return personsToRender.map(person => <div key={person.name}>{person.name} {person.number}</div>)
-        return personsToRender.map(person => <Person key={person.name} person={person} />)
+        return personsToRender.map(person => <Person key={person.name} person={person} onRemovePerson={onRemovePerson}/>)
     }
     
     return (

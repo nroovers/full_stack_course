@@ -54,8 +54,9 @@ const App = () => {
 
       //No effect here as this code only gets executed when specific events triggers
       PersonService.create(newPerson)
-        .then(person => {
-          setPersons(persons.concat([newPerson]))
+        .then(p => {
+          //add the person that was created and returned by the server, this object includes the id property
+          setPersons(persons.concat([p])) 
         })
 
       setNewName('')
@@ -63,6 +64,16 @@ const App = () => {
     }
   }
 
+  const handleRemovePerson = (person) => {
+    console.log('handleRemovePerson ', person)
+    if (window.confirm(`Are you sure you want to delete ${person.name}?`)) {
+      PersonService.remove(person)
+        .then(() => {
+          console.log('Removed person ', person)
+          setPersons(persons.filter(p => p.id !== person.id))
+        })
+    }
+  }
 
   console.log('return')
   return (
@@ -76,7 +87,7 @@ const App = () => {
         newName={newName} newNumber={newNumber} />
 
       <h3>Numbers</h3>
-      <Persons filter={filter} persons={persons} />
+      <Persons filter={filter} persons={persons} onRemovePerson={handleRemovePerson} />
 
     </div>
   )

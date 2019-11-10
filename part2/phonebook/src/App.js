@@ -46,19 +46,29 @@ const App = () => {
 
     console.log('handleAddPerson ', newName, newNumber, persons)
 
-    if (persons.map(person => person.name).includes(newName)) {
-      alert(`${newName} is already added to phonebook`)
+    const personToUpdate = persons.find(p => p.name === newName)
+
+    if (personToUpdate !== undefined) {
+      // alert(`${newName} is already added to phonebook`)
+      if (window.confirm(`${personToUpdate.name} already exists in the phonebook. Replace the number?`)) {
+        personToUpdate.number = newNumber
+        PersonService.update(personToUpdate.id, personToUpdate)
+          .then(p => {
+            //add the person that was created and returned by the server, this object includes the id property
+            setPersons(persons.map(p => p.id === personToUpdate.id ? personToUpdate : p))
+          })
+        setNewName('')
+        setNewNumber('')
+      }
     }
     else {
       const newPerson = { name: newName, number: newNumber }
-
       //No effect here as this code only gets executed when specific events triggers
       PersonService.create(newPerson)
         .then(p => {
           //add the person that was created and returned by the server, this object includes the id property
-          setPersons(persons.concat([p])) 
+          setPersons(persons.concat([p]))
         })
-
       setNewName('')
       setNewNumber('')
     }

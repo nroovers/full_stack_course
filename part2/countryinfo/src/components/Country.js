@@ -31,7 +31,7 @@ function Country({ country }) {
                     </tbody>
                 </table>
 
-                <img src={country.flag} alt={country.name} width="40%"></img>
+                <img src={country.flag} alt={country.name} width="200px"></img>
 
             </div>
         );

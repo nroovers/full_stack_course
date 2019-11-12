@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Filter from './components/Filter';
 import Country from './components/Country';
+import Weather from './components/Weather';
 import './App.css';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
   // const [filter, setFilter] = useState('')
   const [filteredCountries, setFilteredCountries] = useState('')
   const [selectedCountry, setSelectedCountry] = useState('')
+  const [selectedWeather, setSelectedWeather] = useState('')
 
   useEffect(() => {
     console.log('effect')
@@ -41,6 +43,16 @@ function App() {
 
   const handleSelectCountry = (country) => {
     setSelectedCountry(country)
+
+
+    console.log('weather query ', `http://api.weatherstack.com/current?access_key=edbcd4ae66e7f2c186492670c0db7213&query=${country}`)
+
+    axios
+      .get(`http://api.weatherstack.com/current?access_key=edbcd4ae66e7f2c186492670c0db7213&query=${country.capital}`).then(response => {
+        console.log('weather response: ', response.data)
+        setSelectedWeather(response.data)
+      })
+
   }
 
 
@@ -51,6 +63,7 @@ function App() {
 
       <Country country={selectedCountry}></Country>
 
+      <Weather weather={selectedWeather}></Weather>
 
     </div>
   );

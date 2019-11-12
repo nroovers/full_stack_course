@@ -30,19 +30,24 @@ function App() {
     console.log(filter, fc)
 
     if (fc.length > 0 && fc.length < 10) {
-      setSelectedCountry(fc.length === 1 ? fc[0] : '')
+      // setSelectedCountry(fc.length === 1 ? fc[0] : '')
       setFilteredCountries(fc)
     }
     else {
-      setSelectedCountry('')
+      // setSelectedCountry('')
       setFilteredCountries('')
     }
   }
 
+  const handleSelectCountry = (country) => {
+    setSelectedCountry(country)
+  }
+
+
   return (
     <div>
 
-      <Filter countries={filteredCountries} selectedCountry={selectedCountry} handleFilterChange={handleFilterChange}></Filter>
+      <Filter countries={filteredCountries} selectedCountry={selectedCountry} handleFilterChange={handleFilterChange} handleSelectCountry={handleSelectCountry} ></Filter>
 
       <Country country={selectedCountry}></Country>
 

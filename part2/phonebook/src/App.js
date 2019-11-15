@@ -61,7 +61,8 @@ const App = () => {
             writeNotification(`${personToUpdate.name} updated`)
           })
           .catch(error => {
-            writeError(`${personToUpdate.name} could not be updated as it doesnt exist on the server`)
+            console.log(error)
+            writeError(error.response.data.error)
           })
         setNewName('')
         setNewNumber('')
@@ -75,6 +76,10 @@ const App = () => {
           //add the person that was created and returned by the server, this object includes the id property
           setPersons(persons.concat([p]))
           writeNotification(`${newPerson.name} added`)
+        })
+        .catch(error => {
+          console.log(error)
+          writeError(error.response.data.error)
         })
       setNewName('')
       setNewNumber('')

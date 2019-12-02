@@ -19,7 +19,7 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-export const newAnecdote = (anecdote) => {
+export const addAnecdote = (anecdote) => {
   return {
     type: 'NEW_ANECDOTE',
     data: asObject(anecdote)

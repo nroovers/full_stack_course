@@ -19,6 +19,7 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
+// Action creator functions already created
 export const addAnecdote = (anecdote) => {
   return {
     type: 'NEW_ANECDOTE',
@@ -26,6 +27,7 @@ export const addAnecdote = (anecdote) => {
   }
 }
 
+// Action creator functions already created
 export const voteAnecdote = (id) => {
   return {
     type: 'VOTE_ANECDOTE',

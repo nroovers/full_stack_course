@@ -17,9 +17,12 @@ const AnecdoteList = (props) => {
         }, 5000)
     }
 
+    console.log(props.store.getState().filter)
+
     return (
         <div>
             {anecdotes
+                .filter((a) => props.store.getState().filter ? a.content.includes(props.store.getState().filter) : a)
                 .sort((a, b) => b.votes - a.votes)
                 .map(anecdote =>
                     <div key={anecdote.id}>

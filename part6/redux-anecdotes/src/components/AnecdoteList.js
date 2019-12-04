@@ -1,11 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdoteReducer'
 import { setNotification, resetNotification } from '../reducers/notificationReducer'
 
 
 const AnecdoteList = (props) => {
 
-    const anecdotes = props.store.getState().anecdotes
+    const anecdotes = props.anecdotes
 
     const vote = (anecdote) => {
         console.log('vote', anecdote)
@@ -17,12 +18,12 @@ const AnecdoteList = (props) => {
         }, 5000)
     }
 
-    console.log(props.store.getState().filter)
+    console.log(props.filter)
 
     return (
         <div>
             {anecdotes
-                .filter((a) => props.store.getState().filter ? a.content.includes(props.store.getState().filter) : a)
+                .filter((a) => props.filter ? a.content.includes(props.filter) : a)
                 .sort((a, b) => b.votes - a.votes)
                 .map(anecdote =>
                     <div key={anecdote.id}>
@@ -39,4 +40,14 @@ const AnecdoteList = (props) => {
     )
 }
 
-export default AnecdoteList
+const mapStateToProps = (state) => {
+    // sometimes it is useful to console log from mapStateToProps
+    console.log(state)
+    return {
+        anecdotes: state.anecdotes,
+        filter: state.filter
+    }
+}
+
+const ConnectedAnecdoteList = connect(mapStateToProps)(AnecdoteList)
+export default ConnectedAnecdoteList

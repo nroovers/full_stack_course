@@ -9,6 +9,7 @@ const Notification = (props) => {
 
   const nostyle = {}
 
+  console.log( props)
   console.log('render notificaiton', props.store.getState().notification)
 
   return (

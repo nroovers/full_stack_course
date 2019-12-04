@@ -10,12 +10,12 @@ const App = (props) => {
     <div>
       <h2>Anecdotes</h2>
 
-      <Notification store={props.store}></Notification>
+      {/* <Notification store={props.store}></Notification> */}
 
-      <Filter store={props.store}></Filter>
+      {/* <Filter store={props.store}></Filter> */}
 
       <AnecdoteList store={props.store}></AnecdoteList>
-      <AnecdoteForm store={props.store}></AnecdoteForm>
+      {/* <AnecdoteForm store={props.store}></AnecdoteForm> */}
     </div>
   )
 }

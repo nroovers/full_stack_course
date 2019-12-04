@@ -1,7 +1,7 @@
 export const setNotification = (text) => {
     return {
         type: 'SET_NOTIF',
-        data: { text }
+        data: text
     }
 }
 

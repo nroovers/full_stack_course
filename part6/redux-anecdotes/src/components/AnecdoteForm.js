@@ -11,11 +11,11 @@ const AnecdoteForm = (props) => {
         event.preventDefault()
 
         console.log('addNewAnecdote', event.target.newAnec.value)
-        props.store.dispatch(addAnecdote(event.target.newAnec.value))
+        props.addAnecdote(event.target.newAnec.value)
 
-        props.store.dispatch(setNotification(`New anecdote "${event.target.newAnec.value}" added`))
+        props.setNotification(`New anecdote "${event.target.newAnec.value}" added`)
         setTimeout(() => {
-            props.store.dispatch(resetNotification())
+            props.resetNotification()
         }, 5000)
 
         event.target.newAnec.value = ''
@@ -41,5 +41,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-const ConnectedAnecdoteForm = connect(mapStateToProps)(AnecdoteForm)
+const mapDispatchToProps = {
+    addAnecdote,
+    setNotification,
+    resetNotification
+}
+
+const ConnectedAnecdoteForm = connect(mapStateToProps, mapDispatchToProps)(AnecdoteForm)
 export default ConnectedAnecdoteForm

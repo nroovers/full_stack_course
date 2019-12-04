@@ -7,7 +7,7 @@ import Filter from './Filter'
 
 const AnecdoteList = (props) => {
 
-    const anecdotes = props.anecdotes
+    // const anecdotes = props.anecdotes
 
     const vote = (anecdote) => {
         console.log('vote', anecdote)
@@ -19,13 +19,12 @@ const AnecdoteList = (props) => {
         }, 5000)
     }
 
-    console.log(props.filter)
+    // console.log(props.filter)
 
     return (
         <div>
             <Filter />
-            {anecdotes
-                .filter((a) => props.filter ? a.content.includes(props.filter) : a)
+            {props.anecdotesToShow
                 .sort((a, b) => b.votes - a.votes)
                 .map(anecdote =>
                     <div key={anecdote.id}>
@@ -42,12 +41,18 @@ const AnecdoteList = (props) => {
     )
 }
 
+const filteredAndSortedAnecdotes = ({ anecdotes, filter }) => {
+    return anecdotes
+        .filter((a) => filter ? a.content.includes(filter) : a)
+        .sort((a, b) => b.votes - a.votes)
+}
+
 const mapStateToProps = (state) => {
     // sometimes it is useful to console log from mapStateToProps
-    console.log(state)
+    console.log('AnecdoteList - mapStateToProps', state)
     return {
         anecdotes: state.anecdotes,
-        filter: state.filter
+        anecdotesToShow: filteredAndSortedAnecdotes(state)
     }
 }
 

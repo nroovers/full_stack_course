@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { addAnecdote } from '../reducers/anecdoteReducer'
 import { setNotification, resetNotification } from '../reducers/notificationReducer'
 
@@ -31,5 +32,14 @@ const AnecdoteForm = (props) => {
     )
 }
 
+const mapStateToProps = (state) => {
+    // sometimes it is useful to console log from mapStateToProps
+    console.log(state)
+    return {
+        anecdotes: state.anecdotes,
+        filter: state.filter
+    }
+}
 
-export default AnecdoteForm
+const ConnectedAnecdoteForm = connect(mapStateToProps)(AnecdoteForm)
+export default ConnectedAnecdoteForm

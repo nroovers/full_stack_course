@@ -7,11 +7,10 @@ import Filter from './Filter'
 
 const AnecdoteList = (props) => {
 
-    // const anecdotes = props.anecdotes
-
     const vote = (anecdote) => {
         console.log('vote', anecdote)
-        props.voteAnecdote(anecdote.id)
+
+        props.voteAnecdote(anecdote)
 
         props.setNotification(`you voted "${anecdote.content}" `)
         setTimeout(() => {
@@ -25,7 +24,6 @@ const AnecdoteList = (props) => {
         <div>
             <Filter />
             {props.anecdotesToShow
-                .sort((a, b) => b.votes - a.votes)
                 .map(anecdote =>
                     <div key={anecdote.id}>
                         <div>

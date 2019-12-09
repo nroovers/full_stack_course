@@ -21,8 +21,16 @@ const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >{anecdote.content}</li>)}
+      {anecdotes.map(anecdote => <li key={anecdote.id}><Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link></li>)}
     </ul>
+  </div>
+)
+
+const AnecdoteView = ({ anecdote }) => (
+  <div>
+    <h2>{anecdote.content} by {anecdote.author}</h2>
+    <div>has {anecdote.votes} votes</div>
+    <div>for more info see <a href={anecdote.info}>{anecdote.info}</a></div>
   </div>
 )
 
@@ -100,7 +108,7 @@ const App = () => {
       content: 'Premature optimization is the root of all evil',
       author: 'Donald Knuth',
       info: 'http://wiki.c2.com/?PrematureOptimization',
-      votes: 0,
+      votes: 1,
       id: '2'
     }
   ])
@@ -134,6 +142,9 @@ const App = () => {
         <Route exact path="/" render={() => <AnecdoteList anecdotes={anecdotes} />} />
         <Route path="/about" render={() => <About />} />
         <Route path="/create" render={() => <CreateNew addNew={addNew} />} />
+        <Route exact path="/anecdotes/:id" render={({ match }) =>
+          <AnecdoteView anecdote={anecdoteById(match.params.id)} />
+        } />
       </Router>
       <Footer />
     </div>

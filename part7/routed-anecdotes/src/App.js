@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {  } from 'react'
 import { connect } from 'react-redux'
 import {
   BrowserRouter as Router,
@@ -18,7 +18,7 @@ import Login from './components/Login'
 
 const App = (props) => {
 
-  const [user, setUser] = useState('')
+  // const [user, setUser] = useState('')
   // const [users, setUsers] = useState([
   //   {
   //     username: 'nicolai',
@@ -26,9 +26,9 @@ const App = (props) => {
   //   }
   // ])
 
-  const login = (username) => {
-    setUser(username)
-  }
+  // const login = (username) => {
+  //   setUser(username)
+  // }
 
   const anecdoteById = (id) => {
     console.log('anecdoteById', props.anecdotes, id)
@@ -39,16 +39,16 @@ const App = (props) => {
     <div>
       <Router>
         <h1>Software anecdotes</h1>
-        <Menu user={user} />
+        <Menu />
         <Notification></Notification>
         <Route exact path="/" render={() => <AnecdoteList />} />
         <Route path="/about" render={() => <About />} />
         <Route path="/create" render={() =>
-          user ? <CreateNew user={user} /> : <Redirect to="/login" />} />
+          props.login ? <CreateNew /> : <Redirect to="/login" />} />
         <Route exact path="/anecdotes/:id" render={({ match }) =>
           <AnecdoteView anecdote={anecdoteById(match.params.id)} />} />
         <Route path="/login" render={() =>
-          <Login onLogin={login} />
+          <Login />
         } />
       </Router>
       <Footer />
@@ -60,6 +60,7 @@ const mapStateToProps = (state) => {
   console.log('APP - mapStateToProps', state)
   return {
     anecdotes: state.anecdotes,
+    login: state.login
     // users: state.users,
   }
 }

@@ -1,11 +1,13 @@
 const initialState = [
     {
         username: 'nicolai',
-        name: 'Nicolai Roovers'
+        name: 'Nicolai Roovers',
+        anecdotes: ['1']
     },
     {
         username: 'xman',
-        name: 'Kertstman'
+        name: 'Kertstman',
+        anecdotes: ['2', '3']
     }
 ]
 

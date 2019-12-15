@@ -15,18 +15,17 @@ const CreateNew = withRouter((props) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
+        const loggedInUser = props.users.find(u => u.username === props.login)
+        console.log('loggedInUser', loggedInUser)
+
         const newanec = props.createAnecdote({
             content,
             author,
             info,
-            username: props.user
+            username: loggedInUser.username
         }).data
 
         console.log('newanec', newanec)
-
-        const loggedInUser = props.users.find(u => u.username === props.user)
-
-        console.log('loggedInUser', loggedInUser)
 
         props.updateUser({
             ...loggedInUser,
@@ -34,6 +33,7 @@ const CreateNew = withRouter((props) => {
                 ? loggedInUser.anecdotes.concat(newanec.id)
                 : [newanec.id]
         })
+        
         props.setNotification(`New blog ${content} created`, 5)
         props.history.push('/')
     }
@@ -66,6 +66,7 @@ const mapStateToProps = (state) => {
     return {
         anecdotes: state.anecdotes,
         users: state.users,
+        login: state.login
     }
 }
 

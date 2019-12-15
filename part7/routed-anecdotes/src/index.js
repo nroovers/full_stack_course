@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import anecdoteReducer from './reducers/anecdoteReducer'
 import notificationReducer from './reducers/notificationReducer'
 import userReducer from './reducers/userReducer'
+import loginReducer from './reducers/loginReducer'
 
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -13,7 +14,8 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 const reducer = combineReducers({
     anecdotes: anecdoteReducer,
     notification: notificationReducer,
-    users: userReducer
+    users: userReducer,
+    login: loginReducer
 })
 
 const store = createStore(reducer,

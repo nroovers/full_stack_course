@@ -5,13 +5,15 @@ import { createStore, combineReducers, applyMiddleware  } from 'redux'
 import { Provider } from 'react-redux'
 import anecdoteReducer from './reducers/anecdoteReducer'
 import notificationReducer from './reducers/notificationReducer'
+import userReducer from './reducers/userReducer'
 
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 const reducer = combineReducers({
     anecdotes: anecdoteReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
+    users: userReducer
 })
 
 const store = createStore(reducer,

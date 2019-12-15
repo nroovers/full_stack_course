@@ -6,20 +6,30 @@ const initialState = [
         author: 'Jez Humble',
         info: 'https://martinfowler.com/bliki/FrequencyReducesDifficulty.html',
         votes: 0,
-        id: '1'
+        id: '1',
+        user: 'nicolai'
     },
     {
         content: 'Premature optimization is the root of all evil',
         author: 'Donald Knuth',
         info: 'http://wiki.c2.com/?PrematureOptimization',
         votes: 1,
-        id: '2'
+        id: '2',
+        user: 'xman'
+    },
+    {
+        content: 'Another blog bites the dust',
+        author: 'Donald Duck',
+        info: 'http://wiki.c2.com/queen',
+        votes: 3,
+        id: '3',
+        user: 'xman'
     }]
 
 
 const generateId = () => Math.round(Math.random() * 100000)
 
-export const createAnecdote = ({ content, author, info }) => {
+export const createAnecdote = ({ content, author, info, username }) => {
     return {
         type: 'NEW_ANEC',
         data: {
@@ -27,7 +37,8 @@ export const createAnecdote = ({ content, author, info }) => {
             author,
             info,
             votes: 0,
-            id: generateId().toString()
+            id: generateId().toString(),
+            user: username
         }
     }
 }

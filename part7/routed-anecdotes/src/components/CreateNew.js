@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
 import { set } from '../reducers/notificationReducer'
+import { updateUser } from '../reducers/userReducer'
 
 
 const CreateNew = withRouter((props) => {
@@ -13,10 +14,25 @@ const CreateNew = withRouter((props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        props.createAnecdote({
+
+        const newanec = props.createAnecdote({
             content,
             author,
-            info
+            info,
+            username: props.user
+        }).data
+
+        console.log('newanec', newanec)
+
+        const loggedInUser = props.users.find(u => u.username === props.user)
+
+        console.log('loggedInUser', loggedInUser)
+
+        props.updateUser({
+            ...loggedInUser,
+            anecdotes: loggedInUser.anecdotes
+                ? loggedInUser.anecdotes.concat(newanec.id)
+                : [newanec.id]
         })
         props.setNotification(`New blog ${content} created`, 5)
         props.history.push('/')
@@ -49,12 +65,14 @@ const CreateNew = withRouter((props) => {
 const mapStateToProps = (state) => {
     return {
         anecdotes: state.anecdotes,
+        users: state.users,
     }
 }
 
 const mapDispatchToProps = {
     createAnecdote,
-    setNotification: set
+    setNotification: set,
+    updateUser
 }
 
 export default connect(

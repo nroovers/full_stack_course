@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { resetLogin } from '../reducers/loginReducer'
 
 const Menu = (props) => {
     const padding = {
@@ -13,8 +14,9 @@ const Menu = (props) => {
                 ? <Link to='/create' style={padding}>create new</Link>
                 : ''}
             <Link to='/about' style={padding}>about</Link>
+            <Link to='/users' style={padding}>users</Link>
             {props.login
-                ? <em>{props.login} logged in</em>
+                ? <div><em>{props.login} logged in</em> <button onClick={props.resetLogin}>logout</button></div>
                 : <Link to="/login">login</Link>
             }
         </div>
@@ -27,10 +29,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-// const mapDispatchToProps = {
-// }
+const mapDispatchToProps = {
+    resetLogin
+}
 
 export default connect(
     mapStateToProps,
-    // mapDispatchToProps
+    mapDispatchToProps
 )(Menu)

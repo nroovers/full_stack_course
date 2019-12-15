@@ -13,6 +13,7 @@ import CreateNew from './components/CreateNew'
 import AnecdoteList from './components/AnecdoteList'
 import AnecdoteView from './components/AnecdoteView'
 import Login from './components/Login'
+import UserList from './components/UserList'
 
 // import { selectAnecdote } from './reducers/anecdoteReducer'
 
@@ -50,6 +51,7 @@ const App = (props) => {
         <Route path="/login" render={() =>
           <Login />
         } />
+        <Route path="/users" render={() => <UserList />} />
       </Router>
       <Footer />
     </div>

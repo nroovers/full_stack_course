@@ -14,6 +14,7 @@ import AnecdoteList from './components/AnecdoteList'
 import AnecdoteView from './components/AnecdoteView'
 import Login from './components/Login'
 import UserList from './components/UserList'
+import UserView from './components/UserView'
 
 // import { selectAnecdote } from './reducers/anecdoteReducer'
 
@@ -51,7 +52,9 @@ const App = (props) => {
         <Route path="/login" render={() =>
           <Login />
         } />
-        <Route path="/users" render={() => <UserList />} />
+        <Route exact path="/users" render={() => <UserList />} />
+        <Route exact path="/users/:username" render={({ match }) =>
+          <UserView username={match.params.username} />} />
       </Router>
       <Footer />
     </div>
